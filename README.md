@@ -1,10 +1,10 @@
-# Copi_Lib
+# Noitilities
 *Noita modding library focused on providing a wide variety of content with minimal impact on performance through a modules system.*
 ***
 ## Installation
-To install, download the library or add it as a submodule to your own mod's repo, anywhere in your mod folder. Initialize the library's dynamic file path system by typing `dofile_once("Mods/YOURMOD/Copi_Lib/CL_Init.lua").Init("FILEPATH/TO/LIBRARY/")`.
+To install, download the library or add it as a submodule to your own mod's repo, anywhere in your mod folder. Initialize the library's dynamic file path system by typing `dofile_once("Mods/YOURMOD/Noitilities/NL_Init.lua").Init("FILEPATH/TO/LIBRARY/")`.
 
-You may then load the required modules inside your files with a comma separated list of module names, such as `dofile_once("FILEPATH/TO/LIBRARY/CL_ModuleLoader.lua").DofileModules({"ModuleName", "ModuleName2"})`.
+You may then load the required modules inside your files with a comma separated list of module names, such as `dofile_once("FILEPATH/TO/LIBRARY/NL_ModuleLoader.lua").DofileModules({"ModuleName", "ModuleName2"})`.
 
 A list of modules will be featured below.
 ***
@@ -35,7 +35,7 @@ In the context of this example, and when working with vectors as a whole, any si
 @ofoxsmith please update to demonstrate the different methods and expected values
 ```lua
 -- Load the module
-dofile_once("mods/YOURMODNAME/Copi_Lib/CL_ModuleLoader.lua").DofileModules({"Vec2"})
+dofile_once("mods/YOURMODNAME/Noitilities/NT_ModuleLoader.lua").DofileModules({"Vec2"})
 
 -- Get entity coordinates
 local entity_id = GetUpdatedEntityID()
