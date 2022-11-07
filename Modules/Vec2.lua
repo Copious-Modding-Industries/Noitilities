@@ -1,0 +1,1 @@
+-- Vec2 Library, this module provides the Vec2 metatable for manipulation of 2 dimensional Vectors.
