@@ -79,6 +79,11 @@ function Vector2Instance:Magnitude()
     return math.sqrt(self.x^2 + self.y^2)
 end
 
+function Vector2Instance:MagnitudeSquared()
+    return self.x^2 + self.y^2
+end
+
+
 function Vector2Instance:Normalise()
     return self:Div(self:Magnitude())
 end
