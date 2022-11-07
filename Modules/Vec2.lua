@@ -1,4 +1,4 @@
--- Vec2 Library, this module provides the Vec2 metatable for manipulation of 2 dimensional Vectors.
+--- Vec2 class, used for Arithmetic and manipulation of 2 dimensional vectors.
 --- @class Vec2
 --- @field Zero Vector2Instance
 --- @field One Vector2Instance
