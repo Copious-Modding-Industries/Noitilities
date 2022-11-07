@@ -1,10 +1,18 @@
 -- Module Loader file, this will dofile_once the requested modules.
-
---- @param modules table A table of string module names, will call `dofile_once()` on each requested module.
---- ***
---- -@return -- Maybe return a table of return values? 
-function DofileModules( modules )
-    for _, module_name in ipairs(modules) do
-        dofile_once("#COPI_LIB_PATH#/" .. module_name)
+CL_ModuleCache = {}
+---@alias Modules "Vec2"|"ECS"|"PolyUtils"
+--- @param module Modules
+--- @return any . Return type is specified by overloads
+--- @overload fun(module: "Vec2"): Vec2
+--- @overload fun(module: "ECS"): ECS
+--- @overload fun(module: "PolyUtils"): PolyUtils
+local function getModule(module)
+    local data = CL_ModuleCache[module]
+    if data == nil then
+        data = dofile_once("CL_PATHModules/" .. module .. ".lua")
+        CL_ModuleCache[module] = data
     end
+    return data
 end
+
+return getModule
