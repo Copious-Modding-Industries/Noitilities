@@ -1,8 +1,14 @@
 -- Vec2 Library, this module provides the Vec2 metatable for manipulation of 2 dimensional Vectors.
 --- @class Vec2
+--- @field Zero Vector2Instance
+--- @field One Vector2Instance
+--- @field UnitX Vector2Instance
+--- @field UnitY Vector2Instance
+local Vector2 = {}
+
+--- @class Vector2Instance: Vec2
 --- @field x number
 --- @field y number
-local Vector2 = {}
 local Vector2Instance = {}
 function Vector2:New(x, y)
     x = x or 0
