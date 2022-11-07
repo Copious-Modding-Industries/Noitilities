@@ -1,6 +1,6 @@
 -- Module Loader file, this will dofile_once the requested modules.
 CL_ModuleCache = {}
----@alias Modules "Vec2"|"ECS"|"PolyUtils"
+--- @alias Modules "Vec2"|"ECS"|"PolyUtils"
 --- @param module Modules
 --- @return any . Return type is specified by overloads
 --- @overload fun(module: "Vec2"): Vec2
