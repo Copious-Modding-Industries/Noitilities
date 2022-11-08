@@ -1,4 +1,4 @@
--- Initialization file, this will initialize the Copi Library.
+-- Initialization file, this will initialize the Noitilities Library.
 return {
     --- @param path string
     --- @return nil
