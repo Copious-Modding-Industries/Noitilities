@@ -13,7 +13,7 @@ return {
         }
         for i, v in ipairs(files) do
             local m = ModTextFileGetContent(path .. v)
-            m = m:gsub("CL_PATH/", path)
+            m = m:gsub("NL_PATH/", path)
             ModTextFileSetContent(path .. v, m)
         end
     end
