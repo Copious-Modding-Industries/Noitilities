@@ -1,124 +1,128 @@
 --- Vec2 class, used for Arithmetic and manipulation of 2 dimensional vectors.
 --- @class Vec2
---- @field Zero Vector2Instance
---- @field One Vector2Instance
---- @field UnitX Vector2Instance
---- @field UnitY Vector2Instance
-local Vector2 = {}
+--- @field Zero Vec2
+--- @field One Vec2
+--- @field UnitX Vec2
+--- @field UnitY Vec2
+local Vec2 = {}
 
---- @class Vector2Instance: Vec2
---- @field x number
---- @field y number
-local Vector2Instance = {}
-function Vector2:New(x, y)
+function Vec2:New(x, y)
     x = x or 0
     y = y or 0
     local o = {
         x = x,
         y = y,
     }
-    o.__index = Vector2Instance
+    setmetatable(o, Vec2)
+    o.__index = Vec2
     return o;
 end
 
-function Vector2.Add(v1, v2)
+function Vec2:NewFromRad(rad)
+    return Vec2:New(math.cos(rad), math.sin(rad))
+end
+
+function Vec2:NewFromDeg(deg)
+    return Vec2:NewFromRad(math.rad(deg))
+end
+
+function Vec2.Add(v1, v2)
     if type(v1) == "number" then
         v1 = {x = v1, y = v1}
     end
     if type(v2) == "number" then
         v2 = {x = v2, y = v2}
     end
-    return Vector2:New(v1.x + v2.x, v1.y + v2.y)
+    return Vec2:New(v1.x + v2.x, v1.y + v2.y)
 end
 
-function Vector2.Sub(v1, v2)
+function Vec2.Sub(v1, v2)
     if type(v1) == "number" then
         v1 = {x = v1, y = v1}
     end
     if type(v2) == "number" then
         v2 = {x = v2, y = v2}
     end
-    return Vector2:New(v1.x - v2.x, v1.y - v2.y)
+    return Vec2:New(v1.x - v2.x, v1.y - v2.y)
 end
 
-function Vector2.Mul(v1, v2)
+function Vec2.Mul(v1, v2)
     if type(v1) == "number" then
         v1 = {x = v1, y = v1}
     end
     if type(v2) == "number" then
         v2 = {x = v2, y = v2}
     end
-    return Vector2:New(v1.x*v2.x, v1.y*v2.y)
+    return Vec2:New(v1.x*v2.x, v1.y*v2.y)
 end
 
-function Vector2.Div(v1, v2)
+function Vec2.Div(v1, v2)
     if type(v1) == "number" then
         v1 = {x = v1, y = v1}
     end
     if type(v2) == "number" then
         v2 = {x = v2, y = v2}
     end
-    return Vector2:New(v1.x/v2.x, v1.y/v2.y)
+    return Vec2:New(v1.x/v2.x, v1.y/v2.y)
 end
 
-function Vector2.DotProduct(a, b)
+function Vec2.DotProduct(a, b)
     local ax, ay = a.x-b.x, a.y-b.y
     local bx, by = b.x-a.x, b.y-a.y
     local dot = ax * bx + ay * by
     return dot
 end
 
---- Methods only applicable to vector instances
-function Vector2Instance:Abs()
-    self.x = math.abs(self.x)
-    self.y = math.abs(self.y)
+function Vec2.Abs(v)
+    return Vec2:New(math.abs(v.x), math.abs(v.y))
+end
+
+function Vec2.Magnitude(v)
+    return math.sqrt(v.x^2 + v.y^2)
+end
+
+function Vec2.MagnitudeSquared(v)
+    return v.x^2 + v.y^2
+end
+
+
+function Vec2.Normalise(v)
+    return v:Div(v:Magnitude())
+end
+
+function Vec2.__eq(a, b)
+    if a.x ~= b.x or a.y ~= b.y then return false end
+    return true
+end
+
+function Vec2:__unm()
+    self.x = -self.x
+    self.y = -self.y
     return self
 end
 
-function Vector2Instance:Magnitude()
-    return math.sqrt(self.x^2 + self.y^2)
+function Vec2:__tostring()
+    return ("(%s, %s)"):format(tostring(self.x), tostring(self.y))
 end
 
-function Vector2Instance:MagnitudeSquared()
-    return self.x^2 + self.y^2
-end
-
-function Vector2Instance:Normalise()
-    return self:Div(self:Magnitude())
-end
-
-setmetatable(Vector2Instance, Vector2)
-setmetatable(Vector2, {
+setmetatable(Vec2, {
     __index = function (_, k)
-        if k == "Zero" then return Vector2:New(0, 0)
-        elseif k == "One" then return Vector2:New(1, 1)
-        elseif k == "UnitX" then return Vector2:New(1, 0)
-        elseif k == "UnitY" then return Vector2:New(0, 1)
+        if k == "Zero" then return Vec2:New(0, 0)
+        elseif k == "One" then return Vec2:New(1, 1)
+        elseif k == "UnitX" then return Vec2:New(1, 0)
+        elseif k == "UnitY" then return Vec2:New(0, 1)
         end
     end,
-    __call = function(x, y)
-        return Vector2:New(x, y)
+    __call = function(_, x, y)
+        return Vec2:New(x, y)
     end,
-    __tostring = function(t)
-        return "("..t.x..", "..t.y..")"
-    end,
-    __unm = function (t)
-        t.x = -t.x
-        t.y = -t.y
-        return t
-    end,
-    __eq = function (a, b)
-        if a.x ~= b.x or a.y ~= b.y then return false end
-        return true
-    end,
-    __add = Vector2.Add,
-    __sub = Vector2.Sub,
-    __mul = Vector2.Mul,
-    __div = Vector2.Div
+    __add = Vec2.Add,
+    __sub = Vec2.Sub,
+    __mul = Vec2.Mul,
+    __div = Vec2.Div
 })
 
 
-local vec1 = Vector2:New({5,2})
-local vec2 = Vector2:New({1,2})
-local vec3 = vec1 + vec2
-print(vec3.x, vec3.y)
+local vec = Vec2(5, 10)
+
+print(tostring(vec))

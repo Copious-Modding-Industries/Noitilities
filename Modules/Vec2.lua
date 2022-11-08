@@ -26,13 +26,13 @@ function Vec2:New(x, y)
 end
 
 --- @return Vec2
-function Vec2:NewFromRad(rad)
-    return Vec2:New(math.cos(rad), math.sin(rad))
+function Vec2:NewFromRad(rad, dist)
+    return Vec2:New(math.cos(rad) * dist, math.sin(rad) * dist)
 end
 
 --- @return Vec2
-function Vec2:NewFromDeg(deg)
-    return Vec2:NewFromRad(math.rad(deg))
+function Vec2:NewFromDeg(deg, dist)
+    return Vec2:NewFromRad(math.rad(deg), dist)
 end
 
 --- @return Vec2
