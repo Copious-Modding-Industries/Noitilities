@@ -39,7 +39,7 @@ end
 --- @return integer|nil effect The effect entity.
 function PolyUtils.EntityPolymorphToEntity( entity_id, target_path, duration, keep_ui, components_file, end_on_death)
     if polymorph_fixes(entity_id) then
-        local effect = LoadGameEffectEntityTo(entity_id, "[POLYTOOLS_PATH]effect.xml")
+        local effect = LoadGameEffectEntityTo(entity_id, "NL_PATH/Assets/effect.xml")
         local effect_component = EntityGetFirstComponentIncludingDisabled(entity_id, "GameEffectComponent")
         if effect_component ~= nil then
             ComponentSetValue2(effect_component, "polymorph_target", target_path)
