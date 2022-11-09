@@ -162,5 +162,9 @@ function ECS:__index(k)
         return Entity:New(EntityGetWithTag("player_unit")[1])
     end
 end
+
+function ECS:FromID(id)
+    return Entity:New(id)
+end
 setmetatable(ECS, ECS)
 return ECS
