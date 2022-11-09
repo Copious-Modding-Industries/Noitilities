@@ -1,7 +1,4 @@
 -- Entity Component System Module, this module provides functions and content to allow easier use and manipulation of the ECS.
---- @class ECS
-local ECS = {}
-
 -- Compatibility: Lua-5.1
 local function split(str, pat)
     local t = {}  -- NOTE: use {n = 0} in Lua-5.0
@@ -44,17 +41,33 @@ function Entity:__index(k)
             scale_y = sy
         }
     end
-    if k == "name" then 
+    if k == "name" then
         return EntityGetName(self.entityID)
     end
-    if k == "tags" then 
+    if k == "tags" then
         return split(EntityGetTags(self.entityID), ",")
+    end
+    if k == "filepath" then
+        return EntityGetFilename(self.entityID)
+    end
+    if k == "parent" then
+        local id = EntityGetParent(self.entityID)
+        return (id ~= nil and Entity:New(id)) or nil
+    end
+    if k == "children" then
+        local c = EntityGetAllChildren(self.entityID)
+        if c == nil then return nil end
+        local e = {}
+        for _, v in ipairs(c) do
+            table.insert(e, Entity:New(v))
+        end
+        return e
     end
     return Entity[k]
 end
 
 function Entity:__newindex(k, v)
-    if k == "name" then 
+    if k == "name" then
         EntitySetName(self.entityID, v)
     end
 end
@@ -68,6 +81,53 @@ function Entity:SetTransform(nt)
     if nt.scale_y ~= nil then sy = nt.scale_y end
     EntitySetTransform(self.entityID, x, y, r, sx, sy)
 end
+
+function Entity:AddChild(child)
+    if type(child) == "number" then
+        EntityAddChild(self.entityID, child)
+    else
+        EntityAddChild(self.entityID, child.entityID)
+    end
+end
+
+function Entity:Deparent()
+    EntityRemoveFromParent(self.entityID)
+end
+
 function Entity:Kill()
     EntityKill(self.entityID)
 end
+
+--- @class Component
+--- @field entityID number
+--- @field compID number
+local Component = {}
+
+function Component:New(eid, cid)
+    local o = {}
+    o.entityID = eid
+    o.compID = cid
+    setmetatable(o, Component)
+    return o;
+end
+
+function Component:__index(k)
+    if k == "disabled" then
+        return ComponentGetIsEnabled(self.compID)
+    end
+    return ComponentGetValue2(self.compID, k)
+end
+
+function Component:__newindex(k ,v)
+    if k == "disabled" then
+        EntitySetComponentIsEnabled(self.entityID, self.compID, v)
+    end
+    ComponentSetValue2(self.compID, k, v)
+end
+
+function Component:Remove()
+    EntityRemoveComponent(self.entityID, self.compID)
+end
+
+--- @class ECS
+local ECS = {}
