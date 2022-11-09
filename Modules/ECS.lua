@@ -19,6 +19,10 @@ local function split(str, pat)
     return t
  end
 
+ --- @class Component
+--- @field entityID number
+--- @field compID number
+local Component = {}
 --- @class Entity
 --- @field entityID number
 local Entity = {}
@@ -63,7 +67,26 @@ function Entity:__index(k)
         end
         return e
     end
-    return Entity[k]
+
+    if Entity[k] ~= nil then
+        return Entity[k]
+    end   
+    -- Assume the user is trying to get a component
+    local comps = EntityGetComponentIncludingDisabled(self.entityID, k)
+    if comps == nil then
+        return nil
+    end
+    local firstComp = Component:New(self.entityID, comps[1])
+    function firstComp:__index(f)
+        if f == "disabled" then
+            return ComponentGetIsEnabled(self.compID)
+        end
+        if type(f) == "number" then
+            return Component:New(self.entityID, comps[f])
+        end
+        return ComponentGetValue2(self.compID, f)
+    end
+    return firstComp
 end
 
 function Entity:__newindex(k, v)
@@ -80,6 +103,7 @@ function Entity:SetTransform(nt)
     if nt.scale_x ~= nil then sx = nt.scale_x end
     if nt.scale_y ~= nil then sy = nt.scale_y end
     EntitySetTransform(self.entityID, x, y, r, sx, sy)
+    return self
 end
 
 function Entity:AddChild(child)
@@ -88,20 +112,22 @@ function Entity:AddChild(child)
     else
         EntityAddChild(self.entityID, child.entityID)
     end
+    return self
 end
 
 function Entity:Deparent()
     EntityRemoveFromParent(self.entityID)
+    return self
 end
 
 function Entity:Kill()
     EntityKill(self.entityID)
 end
 
---- @class Component
---- @field entityID number
---- @field compID number
-local Component = {}
+function Entity:AddComponent(type, data)
+    EntityAddComponent2(self.entityID, type, data)
+    return self
+end
 
 function Component:New(eid, cid)
     local o = {}
@@ -131,3 +157,10 @@ end
 
 --- @class ECS
 local ECS = {}
+function ECS:__index(k)
+    if k == "Player" then
+        return Entity:New(EntityGetWithTag("player_unit")[1])
+    end
+end
+setmetatable(ECS, ECS)
+return ECS
