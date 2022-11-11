@@ -1,3 +1,7 @@
+## **WARNING! THIS LIBRARY IS WORK IN PROGRESS. DOCUMENTATION MAY BE OUTDATED AND INCORRECT. YOU MAY VIEW IT FOR PREVIEWING PURPOSES OR TO CONTRIBUTE, BUT IT IS NOT IN A USABLE STATE.**
+***
+
+
 # **Noitilities**
 *Noitilities is a Noita modding library focused on providing a wide variety of features with minimal overhead and excess files loaded through a modules system.*
 ***
