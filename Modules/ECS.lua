@@ -129,6 +129,18 @@ function Entity:AddComponent(type, data)
     return self
 end
 
+function Entity:Damage(amount, type, desc, rag_fx, imp_x, imp_y, entity_responsible, pos_x, pos_y, knockback_force)
+    EntityInflictDamage(self.entityID, amount, type, desc, rag_fx, imp_x, imp_y, entity_responsible, pos_x, pos_y, knockback_force)
+end
+
+function Entity:Ingest(material, amount)
+    if type(material) == "number" then
+        EntityIngestMaterial(self.entityID, material, amount)
+    else 
+        EntityIngestMaterial(self.entityID, CellFactory_GetType(material), amount)
+    end
+end
+
 function Component:New(eid, cid)
     local o = {}
     o.entityID = eid
@@ -166,5 +178,53 @@ end
 function ECS:FromID(id)
     return Entity:New(id)
 end
+
+function ECS:Load(file, x, y)
+    return Entity:New(EntityLoad(file, x, y))
+end
+
+function ECS:LoadCameraBound(file, x, y)
+    return Entity:New(EntityLoad(file, x, y))
+end
+
+function ECS:WithTag(tag)
+    local entities = EntityGetWithTag(tag)
+    local i = {}
+    for _, v in ipairs(entities) do 
+        table.insert(i, Entity:New(v))
+    end
+    return i
+end
+
+function ECS:WithName(name)
+    return Entity:New(EntityGetWithName(name))
+end
+
+function ECS:InRadius(x, y, radius, tag)
+    if tag ~= nil then 
+        local entities = EntityGetInRadiusWithTag(x, y, radius, tag)
+        local i = {}
+        for _, v in ipairs(entities) do 
+            table.insert(i, Entity:New(v))
+        end
+        return i
+    else 
+        local entities = EntityGetInRadius(x, y, radius)
+        local i = {}
+        for _, v in ipairs(entities) do 
+            table.insert(i, Entity:New(v))
+        end
+        return i
+    end
+end
+
+function ECS:Closest(x, y, tag)
+    if tag ~= nil then 
+        return Entity:New(EntityGetClosest(x, y))
+    else 
+        return Entity:New(EntityGetClosestWithTag(x, y, tag))
+    end
+end
+
 setmetatable(ECS, ECS)
 return ECS
