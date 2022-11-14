@@ -130,6 +130,21 @@ function Vec2.Unpack(v)
     return v.x, v.y
 end
 
+function Vec2.__add(a, b)
+    return Vec2.Add(a, b)
+end
+
+function Vec2.__sub(a, b)
+    return Vec2.Sub(a, b)
+end
+
+function Vec2.__mul(a, b)
+    return Vec2.Mul(a, b)
+end
+
+function Vec2.__div(a, b)
+    return Vec2.Div(a, b)
+end
 setmetatable(Vec2, {
     __index = function (_, k)
         if k == "Zero" then return Vec2:New(0, 0)
@@ -141,10 +156,6 @@ setmetatable(Vec2, {
     __call = function(_, x, y)
         return Vec2:New(x, y)
     end,
-    __add = Vec2.Add,
-    __sub = Vec2.Sub,
-    __mul = Vec2.Mul,
-    __div = Vec2.Div
 })
 
 return Vec2

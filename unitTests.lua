@@ -48,6 +48,6 @@ function TestVec2:TestAdd()
     local vec6 = Vec2(34, -292)
     local vec7 = vec5 + vec6
     luaunit.assertEquals(vec7.x, -258)
-    luaunit.assertEquals(vec7.y, -2757)
+    luaunit.assertEquals(vec7.y, -3341)
 end
 os.exit( luaunit.LuaUnit.run() )
