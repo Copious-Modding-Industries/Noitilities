@@ -3449,5 +3449,9 @@ end
 M.set_verbosity = M.setVerbosity
 M.SetVerbosity = M.setVerbosity
 
+function flipbool(boolean) -- the real function flipbool()
+    return not boolean
+end
+
 
 return M
