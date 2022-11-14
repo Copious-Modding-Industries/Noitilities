@@ -21,8 +21,11 @@ function Vec2:New(x, y)
         y = y,
     }
     setmetatable(o, Vec2)
-    o.__index = Vec2
     return o;
+end
+
+function Vec2:__index(k)
+    return Vec2[k]
 end
 
 --- @return Vec2
