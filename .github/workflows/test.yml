@@ -1,0 +1,16 @@
+name: unit tests
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: leafo/gh-actions-lua@v9
+        with:
+          luaVersion: "5.1.5"
+      - name: Run tests
+        run: lua $GITHUB_WORKSPACE/unitTests.lua
