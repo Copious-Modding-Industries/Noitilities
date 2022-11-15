@@ -12,7 +12,7 @@ jobs:
       - name: Checkout test environment
         uses: actions/checkout@v3
         with:
-          repository: ofoxsmith/noita-env
+          repository: Copious-Modding-Industries/noita-env
           path: env
       - uses: leafo/gh-actions-lua@v9
         with:
