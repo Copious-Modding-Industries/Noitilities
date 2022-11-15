@@ -1,5 +1,9 @@
 luaunit = require('luaunit')
-require("env")
+require("env/env")
+
+---
+--- VEC2 TESTS
+---
 local Vec2 = require("Modules.Vec2")
 TestVec2 = {}
 function TestVec2:TestStaticMembers()
@@ -136,4 +140,9 @@ function TestVec2:TestUnpack()
     luaunit.assertEquals(x, 100)
     luaunit.assertEquals(y, 49)
 end
+
+---
+--- ECS TESTS
+---
+
 os.exit(luaunit.LuaUnit.run())

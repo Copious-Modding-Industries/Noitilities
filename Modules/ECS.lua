@@ -28,6 +28,8 @@ local Component = {}
 local Entity = {}
 
 function Entity:New(id)
+    id = id or GetUpdatedEntityID()
+    if id == nil then error("Can't create an entity without a specified ID if GetUpdatedEntityID does not work in the context", 2) end
     local o = {}
     o.entityID = id
     setmetatable(o, Entity)

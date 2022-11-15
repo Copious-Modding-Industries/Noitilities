@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Initialization file, this will initialize the Noitilities Library.
 return {
     --- @param path string
