@@ -16,6 +16,6 @@ jobs:
           path: env
       - uses: leafo/gh-actions-lua@v9
         with:
-          luaVersion: "5.1.0"
+          luaVersion: "5.1.5"
       - name: Run tests
         run: lua $GITHUB_WORKSPACE/unitTests.lua
