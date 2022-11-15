@@ -9,8 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Checkout test environment
+        uses: actions/checkout@v3
+        with:
+          repository: ofoxsmith/noita-env
+          path: env
       - uses: leafo/gh-actions-lua@v9
         with:
-          luaVersion: "5.1.5"
+          luaVersion: "5.1.0"
       - name: Run tests
         run: lua $GITHUB_WORKSPACE/unitTests.lua
