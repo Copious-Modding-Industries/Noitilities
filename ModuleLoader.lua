@@ -1,6 +1,6 @@
 -- Module Loader file, this will dofile_once the requested modules.
 NL_ModuleCache = {}
---- @alias Modules "Vec2"|"ECS"|"PolyUtils"|"Base64"
+--- @alias Modules "Vec2"|"ECS"|"PolyUtils"|"Base64"|"DamageModel"|"Translations"
 --- @param module Modules
 --- @return any data Return type is specified by overloads
 --- @overload fun(module: "Vec2"): Vec2
