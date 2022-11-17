@@ -54,3 +54,5 @@ function DataStorage:GetEntityStore(name)
         end
     })
 end
+
+return DataStorage

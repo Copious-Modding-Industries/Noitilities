@@ -74,12 +74,12 @@ In the context of this example, and when working with vectors as a whole, any si
     print(position)
 
     -- Create a vec2 using a distance and an angle in degrees
-    local target = Vec2:NewFromAngleDeg(25, 30)
+    local target = Vec2:NewFromDeg(25, 30)
     -- Will output the values of '21.651, 12.5'
     print(target)
 
     -- Create a vec2 using a distance and an angle in radians
-    local offset = Vec2:NewFromAngleRad(50, math.pi/4)
+    local offset = Vec2:NewFromRad(50, math.pi/4)
     -- Will output the values '35.355, 35.355'
     print(offset)
 
