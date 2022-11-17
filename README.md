@@ -96,10 +96,12 @@ In the context of this example, and when working with vectors as a whole, any si
 ### **ECS**
 The ECS Module provides wrappers for some of the common operations performed on entities and components. The module is split into three classes - Entity, Component, and the static ECS class.
 #### **Static properties**
+
     | Field  | Description                                   |
     |--------|-----------------------------------------------|
     | Player | Returns the Player entity as an Entity object |
 #### **Static methods** 
+
     | Method   | Use                                | Description                                                                                                       |
     |----------|------------------------------------|-------------------------------------------------------------------------------------------------------------------|
     | FromID   | `ECS:FromID(entity_id)`            | Creates an Entity object based on a pre-existing entity ID.                                                       |
