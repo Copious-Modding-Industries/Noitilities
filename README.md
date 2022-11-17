@@ -41,7 +41,7 @@ The first method is placing an independent instance of the library in your mod, 
 * Modules are single files used to organize and separate the contents of the library. With the Modules system, you don't need to load every single function for irrelevant content just to use one feature.
 Below each module and it's functionality will be listed.
 ### **Vec2**
-* The Vec2 Module allows users to manipulate and work with 2 dimensional vectors with ease, which are frequently used in noita's 2D world environment. The Module provides a *Vec2 Metatable*, which can be used to perform many operations on 2D vectors. It also provides easy creation of Vec2 tables, from angle and distance values or x and y values.
+* The Vec2 Module allows users to manipulate and work with 2 dimensional vectors with ease, which are frequently used in noita's 2D world environment. The Module provides a *Vec2 class*, which can be used to perform many operations on 2D vectors. It also provides easy creation of Vec2 tables, from angle and distance values or x and y values.
 In the context of this example, and when working with vectors as a whole, any single dimensional number (such as `2`, `6`, `-5`, `3`) is a scalar, while multiple dimensional numbers (such as `2,5`; `8,3`; `7,0`) are vectors.
 
     | Method            | Use                       | Description                                                                          |
@@ -75,12 +75,12 @@ In the context of this example, and when working with vectors as a whole, any si
 
     -- Create a vec2 using a distance and an angle in degrees
     local target = Vec2:NewFromDeg(25, 30)
-    -- Will output the values of '21.651, 12.5'
+    -- Will output the values of '27.18, 12.67'
     print(target)
 
     -- Create a vec2 using a distance and an angle in radians
     local offset = Vec2:NewFromRad(50, math.pi/4)
-    -- Will output the values '35.355, 35.355'
+    -- Will output the values '0.5, 0.6'
     print(offset)
 
     -- Add Vectors
@@ -93,3 +93,18 @@ In the context of this example, and when working with vectors as a whole, any si
     -- Will output the values '43.302, 25'
     print(target_final_msc)
     ```
+### **ECS**
+The ECS Module provides wrappers for some of the common operations performed on entities and components. The module is split into three classes - Entity, Component, and the static ECS class.
+#### **Static properties**
+    | Field  | Description                                   |
+    |--------|-----------------------------------------------|
+    | Player | Returns the Player entity as an Entity object |
+#### **Static methods** 
+    | Method   | Use                                | Description                                                                                                       |
+    |----------|------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+    | FromID   | `ECS:FromID(entity_id)`            | Creates an Entity object based on a pre-existing entity ID.                                                       |
+    | Load     | `ECS:Load(filepath, x, y)`         | Identical to EntityLoad(), but returns an Entity object instead of an ID.`                                        |
+    | WithTag  | `ECS:WithTag(tag)`                 | Returns an array of Entity objects that have the specified tag.                                                   |
+    | WithName | `ECS:WithName(name)`               | Returns an Entity object that has the specified name, or nil if none is found.                                    |
+    | InRadius | `ECS:InRadius(x, y, radius, tag?)` | Returns an array of Entity objects that are within the given radius. A tag to search for can be optionally given. |
+    | Closest  | `ECS:Closest(x, y, tag?)`          | Returns the closest Entity. If tag is given, returns the closest Entity with the given tag.                       |
