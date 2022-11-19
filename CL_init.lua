@@ -17,5 +17,7 @@ return {
             m = m:gsub("NL_PATH/", path)
             ModTextFileSetContent(path .. v, m)
         end
+        -- Reset patch states
+        ModSettingSet("Noitilities.PerkReflectionPatched", false)
     end
 }
