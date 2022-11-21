@@ -10,7 +10,9 @@ return {
             "Modules/ECS.lua",
             "Modules/PolyUtils.lua",
             "Modules/Vec2.lua",
-            "Modules/Base64.lua"
+            "Modules/Base64.lua",
+            "Modules/GunPatch.lua",
+            "Modules/PerkPatch.lua"
         }
         for i, v in ipairs(files) do
             local m = ModTextFileGetContent(path .. v)
