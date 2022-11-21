@@ -5,7 +5,7 @@ function PatchGunSystem()
 
         -- apply gun.lua patch
         ModLuaFileAppend( "data/scripts/gun/gun.lua", "NL_PATH/Assets/GunPatch/GunPatches.lua" );
-
+        
         -- apply reflection patch
         local filetext = ModTextFileGetContent("data/scripts/gun/gun_collect_metadata.lua")
         filetext = filetext:gsub(
@@ -17,6 +17,6 @@ if not action.progress_hidden then
             [[register_action( c )]],
             [[register_action( c )
 end]])
-    ModTextFileSetContent("data/scripts/gun/gun_collect_metadata.lua", filetext)
+    --ModTextFileSetContent("data/scripts/gun/gun_collect_metadata.lua", filetext)
     end
 end
