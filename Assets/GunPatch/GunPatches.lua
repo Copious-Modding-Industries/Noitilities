@@ -23,7 +23,7 @@ function order_deck()
 
     -- when the deck is ordered, go through and make the spells respect mana multiplier
     for _,action in pairs(deck) do
-        if action.nt_manamult == nil then
+        if action.ce_manamult == nil then
             local base_mana = action.mana or 0;
             action.mana = nil;
             setmetatable( action, {
@@ -33,7 +33,7 @@ function order_deck()
                     end
                 end
             } );
-            action.nt_manamult = true;
+            action.ce_manamult = true;
         end
     end
 end
