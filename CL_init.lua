@@ -19,5 +19,6 @@ return {
         end
         -- Reset patch states
         ModSettingSet("Noitilities.PerkReflectionPatched", false)
+        ModSettingSet("Noitilities.GunSystemPatched", false)
     end
 }
