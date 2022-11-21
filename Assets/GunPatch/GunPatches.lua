@@ -1,3 +1,4 @@
+-- Cast state extension
 ce = {
     -- Extra utilities
     mana_multiplier = 1.0,
@@ -19,6 +20,7 @@ function register_action( state )
 end
 
 function order_deck()
+    -- order the deck
     ce._order_deck();
 
     -- when the deck is ordered, go through and make the spells respect mana multiplier
