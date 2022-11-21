@@ -16,4 +16,4 @@ local function getModule(module)
     return data
 end
 
-return getModule
+return { getModule }
