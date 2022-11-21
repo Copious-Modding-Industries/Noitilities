@@ -1,47 +1,15 @@
---[[
-    Patch data/scripts/perks/perk_reflect.lua to allow perk hiding:
-    === BEFORE ===
-    dofile( "data/scripts/perks/perk_list.lua" )
-
-    for i,perk in ipairs(perk_list) do
-        RegisterPerk( 
-            perk.id,
-            perk.ui_name,
-            perk.ui_description,
-            perk.ui_icon,
-            perk.perk_icon
-            )
-    end
-    === AFTER ===
-    dofile( "data/scripts/perks/perk_list.lua" )
-
-    for i,perk in ipairs(perk_list) do
-        if not perk.progress_hidden then
-            RegisterPerk( 
-                perk.id,
-                perk.ui_name,
-                perk.ui_description,
-                perk.ui_icon,
-                perk.perk_icon
-                )
-        end
-    end
-    =========
-    Users will need to add the value "progress_hidden = true" to their perk but it will be hidden
-]]
-
+--- Applies a patch to `data/scripts/perks/perk_reflect.lua` so that perks with the value `progress_hidden` set to `true` will not show up in the progress menu. Will skip execution if the patch is already applied by another instance of Noitilities.
 function PatchPerkReflection()
-    -- check to see if patch is applied
+    -- check if patch is actually applied
     if not ModSettingGet("Noitilities.PerkReflectionPatched") then
-        -- flag to make sure it doesn't re-patch
         ModSettingSet("Noitilities.PerkReflectionPatched", true)
-        -- get old file contents
-        local filetext = ModTextFileGetContent("data/scripts/perks/perk_reflect.lua")
         -- apply patch
+        local filetext = ModTextFileGetContent("data/scripts/perks/perk_reflect.lua")
         filetext = filetext:gsub(
-            [[	RegisterPerk( ]],
-            [[	RegisterPerk( 
-    if not perk.progress_hidden then]])
+            [[RegisterPerk(]],
+            [[
+if not perk.progress_hidden then
+    RegisterPerk(]])
         filetext = filetext:gsub(
             [[end]],
             [[	end
