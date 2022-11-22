@@ -1,7 +1,6 @@
 ## **WARNING! THIS LIBRARY IS WORK IN PROGRESS. DOCUMENTATION MAY BE OUTDATED AND INCORRECT. YOU MAY VIEW IT FOR PREVIEWING PURPOSES OR TO CONTRIBUTE, BUT IT IS NOT IN A USABLE STATE.**
 ***
 
-
 # **Noitilities**
 *Noitilities is a Noita modding library focused on providing a wide variety of features with minimal overhead and excess files loaded through a modules system.*
 ***
@@ -60,7 +59,8 @@ In the context of this example, and when working with vectors as a whole, any si
     | Tostring          | `tostring(vec2)`          | Returns the vector formatted as `'(x, y)'`                                           |
     | Call              | `vec2(x, y)`              | Returns a new vector from 2 scalars                                                  |
     | Unary sub         | `-vec2`                   | returns the vector flipped 180 degrees                                               |
-    ```lua
+
+```lua
     -- Load the module
     dofile_once("mods/YOURMODNAME/Noitilities/NT_ModuleLoader.lua").DofileModules({"Vec2"})
 
@@ -92,21 +92,46 @@ In the context of this example, and when working with vectors as a whole, any si
     local target_final_msc = target * 2
     -- Will output the values '43.302, 25'
     print(target_final_msc)
-    ```
+```
+
 ### **ECS**
+
 The ECS Module provides wrappers for some of the common operations performed on entities and components. The module is split into three classes - Entity, Component, and the static ECS class.
+
 #### **Static properties**
 
-    | Field  | Description                                   |
-    |--------|-----------------------------------------------|
-    | Player | Returns the Player entity as an Entity object |
+| Field  | Description                                   |
+| ------ | --------------------------------------------- |
+| Player | Returns the Player entity as an Entity object |
+
 #### **Static methods** 
 
-    | Method   | Use                                | Description                                                                                                       |
-    |----------|------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-    | FromID   | `ECS:FromID(entity_id)`            | Creates an Entity object based on a pre-existing entity ID.                                                       |
-    | Load     | `ECS:Load(filepath, x, y)`         | Identical to EntityLoad(), but returns an Entity object instead of an ID.`                                        |
-    | WithTag  | `ECS:WithTag(tag)`                 | Returns an array of Entity objects that have the specified tag.                                                   |
-    | WithName | `ECS:WithName(name)`               | Returns an Entity object that has the specified name, or nil if none is found.                                    |
-    | InRadius | `ECS:InRadius(x, y, radius, tag?)` | Returns an array of Entity objects that are within the given radius. A tag to search for can be optionally given. |
-    | Closest  | `ECS:Closest(x, y, tag?)`          | Returns the closest Entity. If tag is given, returns the closest Entity with the given tag.                       |
+| Method   | Use                                | Description                                                                                                       |
+| -------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| FromID   | `ECS:FromID(entity_id)`            | Creates an Entity object based on a pre-existing entity ID.                                                       |
+| Load     | `ECS:Load(filepath, x, y)`         | Identical to EntityLoad(), but returns an Entity object instead of an ID.`                                        |
+| WithTag  | `ECS:WithTag(tag)`                 | Returns an array of Entity objects that have the specified tag.                                                   |
+| WithName | `ECS:WithName(name)`               | Returns an Entity object that has the specified name, or nil if none is found.                                    |
+| InRadius | `ECS:InRadius(x, y, radius, tag?)` | Returns an array of Entity objects that are within the given radius. A tag to search for can be optionally given. |
+| Closest  | `ECS:Closest(x, y, tag?)`          | Returns the closest Entity. If tag is given, returns the closest Entity with the given tag.                       |
+
+
+| Method            | Use                       | Description                                                                          |
+| ----------------- | ------------------------- | ------------------------------------------------------------------------------------ |
+| New               | `vec2.new(x, y)`          | Returns a new vector from 2 scalars                                                  |
+| Add               | `vec2 + vec2`             | Returns vector `a` plus vector `b`                                                   |
+| Sub               | `vec2 - vec2`             | Returns vector `a` minus vector `b`                                                  |
+| Mul               | `vec2 * scalar`           | Returns the vector cross product of vector `a` and `b`                               |
+| Div               | `vec2 / vec2`             | Returns vector `a` divided by vector `b`                                             |
+| DotProduct        | `vec2 * vec2`             | Returns the scalar dot product of vector `a` and `b`                                 |
+| Abs               | `vec2:Abs()`              | Returns the absolute vector `a`                                                      |
+| Magnitude         | `vec2:Magnitude()`        | Returns the scalar length of vector `a`                                              |
+| MagnitudeSquared  | `vec2:MagnitudeSquared()` | Returns the scalar length of vector `a` before being square rooted (more performant) |
+| Normalize         | `vec2:Normalize()`        | Returns the unit vector of vector `a` normalized                                     |
+| Equals comparison | `vec2 == vec2`            | Returns `true` if vectors `a` and `b` are identical                                  |
+| Tostring          | `tostring(vec2)`          | Returns the vector formatted as `'(x, y)'`                                           |
+| Call              | `vec2(x, y)`              | Returns a new vector from 2 scalars                                                  |
+| Unary sub         | `-vec2`                   | returns the vector flipped 180 degrees                                               |
+
+| Default value |  |
+| ------------- |--|
