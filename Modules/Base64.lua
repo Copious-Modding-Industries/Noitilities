@@ -42,7 +42,7 @@ if not extract then
     end
 end
 
-function base64.makeencoder(s62, s63, spad)
+function base64:makeencoder(s62, s63, spad)
     local encoder = {}
     for b64code, char in pairs {
         [0] = 'A',
@@ -116,20 +116,20 @@ function base64.makeencoder(s62, s63, spad)
     return encoder
 end
 
-function base64.makedecoder(s62, s63, spad)
+function base64:makedecoder(s62, s63, spad)
     local decoder = {}
-    for b64code, charcode in pairs(base64.makeencoder(s62, s63, spad)) do
+    for b64code, charcode in pairs(base64:makeencoder(s62, s63, spad)) do
         decoder[charcode] = b64code
     end
     return decoder
 end
 
-local DEFAULT_ENCODER = base64.makeencoder()
-local DEFAULT_DECODER = base64.makedecoder()
+local DEFAULT_ENCODER = base64:makeencoder()
+local DEFAULT_DECODER = base64:makedecoder()
 
 local char, concat = string.char, table.concat
 
-function base64.encode(str, encoder, usecaching)
+function base64:encode(str, encoder, usecaching)
     encoder = encoder or DEFAULT_ENCODER
     local t, k, n = {}, 1, #str
     local lastn = n % 3
@@ -163,7 +163,7 @@ function base64.encode(str, encoder, usecaching)
     return concat(t)
 end
 
-function base64.decode(b64, decoder, usecaching)
+function base64:decode(b64, decoder, usecaching)
     decoder = decoder or DEFAULT_DECODER
     local pattern = '[^%w%+%/%=]'
     if decoder then
@@ -212,7 +212,7 @@ function base64.decode(b64, decoder, usecaching)
     return concat(t)
 end
 
-function base64.decodeToNumbers(b64, decoder)
+function base64:decodeToNumbers(b64, decoder)
     decoder = decoder or DEFAULT_DECODER
     local pattern = '[^%w%+%/%=]'
     if decoder then
