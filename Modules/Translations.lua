@@ -1,36 +1,7 @@
 ---@alias langs "en"|"ru"|"pt-br"|"es-es"|"de"|"fr-fr"|"it"|"pl"|"zh-cn"|"jp"|"ko"
 ---@alias translationTable table<langs, table<string, string>>
 local Translations = {}
---[[
---- @param key string The translation key you wish to write to"]
---- @param value string The value you will assign to the key
---- @param translation string|nil An existing formatted translation line, will generate if nil
---- @param language string|nil The language you will assign the value to, defaults to `"en"`
---- ***
---- @return string translation The formatted translation line
-function FormatTranslation(key, value, translation, language)
-    if not translation then
-        translation = ""
-    end
-    return translation
-end
-]]
 --- @param translation_table translationTable An indexed table following this format:
---[[
-```lua
-local translations = {
-    ["en"] = {
-        ["action_bomb"] = "Bomb",
-        ["actiondesc_bomb"] = "Summons a bomb that destroys ground very efficiently",
-    },
-    ["ru"] = {
-        ["action_bomb"] = "Бомба",
-        ["actiondesc_bomb"] = "Призыв бомбы, которая очень эффективно разрушает землю",
-    },
-}
-```
-]]
---- ***
 function Translations.CSVGenFromTable(translation_table)
     -- Assume the table is indexed by language
     if translation_table["en"] ~= nil then
@@ -48,7 +19,7 @@ function Translations.CSVGenFromTable(translation_table)
     for key, translations in pairs(translation_table) do
         setmetatable(translations, { __index = function(_, _) return "" end })
         csv = csv .. key .. ","
-        for language in pairs(languages) do
+        for _, language in ipairs(languages) do
             csv = csv .. translations[language]
         end
         csv = csv .. "\n"
@@ -90,12 +61,11 @@ end
 function Translations.AddKey(name, translations)
     local csv = name .. ","
     local languages = { "en", "ru", "pt-br", "es-es", "de", "fr-fr", "it", "pl", "zh-cn", "jp", "ko" }
-    for language in pairs(languages) do
+    for _, language in ipairs(languages) do
         csv = csv .. (translations[language] or "") .. ","
     end
-    csv = csv .. "\n"
     ModTextFileSetContent("data/translations/common.csv",
-        ModTextFileGetContent("data/translations/common.csv") .. "\n" .. csv)
+    ModTextFileGetContent("data/translations/common.csv").. csv .. "\n")
 end
 
 function Translations.EditKey(name, translations)
@@ -117,31 +87,8 @@ end
 
 function Translations.RemoveKey(name)
     local csv = ModTextFileGetContent("data/translations/common.csv")
-    csv = csv:gsub(name .. "[^\n]+\n", "")
+    csv, e = csv:gsub(name .. "[^\n]*\n", "")
     ModTextFileSetContent("data/translations/common.csv", csv)
 end
-
-local keytrans = {
-    ["action_bomb"] = {
-        ["en"] = "Bomb",
-        ["ru"] = "Бомба",
-        ["pt-br"] = "Bomba",
-    },
-    ["actiondesc_bomb"] = {
-        ["en"] = "Summons a bomb that destroys ground very efficiently",
-        ["ru"] = "Призыв бомбы, которая очень эффективно разрушает землю",
-        ["pt-br"] = "Evoca uma bomba que destrói o chão de forma muito eficiente.",
-    },
-    ["action_light_bullet"] = {
-        ["en"] = "Spark bolt",
-        ["ru"] = "Искровая молния",
-        ["pt-br"] = "Fagulha",
-    },
-    ["actiondesc_light_bullet"] = {
-        ["en"] = "A weak but enchanting sparkling projectile",
-        ["ru"] = "Очаровательно сверкающий",
-        ["pt-br"] = "Um projétil fraco, reluzente e encantador.",
-    },
-}
 
 return Translations
