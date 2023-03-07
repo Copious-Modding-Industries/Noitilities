@@ -39,7 +39,7 @@ The first method is placing an independent instance of the library in your mod, 
 ## **Modules**
 * Modules are single files used to organize and separate the contents of the library. With the Modules system, you don't need to load every single function for irrelevant content just to use one feature.
 Below each module and it's functionality will be listed.
-### **Vec2**
+## **Vec2**
 * The Vec2 Module allows users to manipulate and work with 2 dimensional vectors with ease, which are frequently used in noita's 2D world environment. The Module provides a *Vec2 class*, which can be used to perform many operations on 2D vectors. It also provides easy creation of Vec2 tables, from angle and distance values or x and y values.
 In the context of this example, and when working with vectors as a whole, any single dimensional number (such as `2`, `6`, `-5`, `3`) is a scalar, while multiple dimensional numbers (such as `2,5`; `8,3`; `7,0`) are vectors.
 
@@ -94,7 +94,9 @@ In the context of this example, and when working with vectors as a whole, any si
     print(target_final_msc)
 ```
 
-### **ECS**
+## **ECS**
+
+### ECS Static Class
 
 The ECS Module provides wrappers for some of the common operations performed on entities and components. The module is split into three classes - Entity, Component, and the static ECS class.
 
@@ -116,22 +118,28 @@ The ECS Module provides wrappers for some of the common operations performed on 
 | Closest  | `ECS:Closest(x, y, tag?)`          | Returns the closest Entity. If tag is given, returns the closest Entity with the given tag.                       |
 
 
-| Method            | Use                       | Description                                                                          |
-| ----------------- | ------------------------- | ------------------------------------------------------------------------------------ |
-| New               | `vec2.new(x, y)`          | Returns a new vector from 2 scalars                                                  |
-| Add               | `vec2 + vec2`             | Returns vector `a` plus vector `b`                                                   |
-| Sub               | `vec2 - vec2`             | Returns vector `a` minus vector `b`                                                  |
-| Mul               | `vec2 * scalar`           | Returns the vector cross product of vector `a` and `b`                               |
-| Div               | `vec2 / vec2`             | Returns vector `a` divided by vector `b`                                             |
-| DotProduct        | `vec2 * vec2`             | Returns the scalar dot product of vector `a` and `b`                                 |
-| Abs               | `vec2:Abs()`              | Returns the absolute vector `a`                                                      |
-| Magnitude         | `vec2:Magnitude()`        | Returns the scalar length of vector `a`                                              |
-| MagnitudeSquared  | `vec2:MagnitudeSquared()` | Returns the scalar length of vector `a` before being square rooted (more performant) |
-| Normalize         | `vec2:Normalize()`        | Returns the unit vector of vector `a` normalized                                     |
-| Equals comparison | `vec2 == vec2`            | Returns `true` if vectors `a` and `b` are identical                                  |
-| Tostring          | `tostring(vec2)`          | Returns the vector formatted as `'(x, y)'`                                           |
-| Call              | `vec2(x, y)`              | Returns a new vector from 2 scalars                                                  |
-| Unary sub         | `-vec2`                   | returns the vector flipped 180 degrees                                               |
+### Entity class
 
-| Default value |  |
-| ------------- |--|
+#### **Instance properties**
+| Field  | Description                                   |
+| ------ | --------------------------------------------- |
+| transform (readonly) | Returns the entities current transform as a table containing x, y, rotation, scale_x, scale_y |
+| name (readonly) | Returns the Entity's name |
+| tags (readonly) | Returns an array of the Entity's tags |
+| filepath (readonly) | Returns the Entity's filepath |
+| parent (readonly) | Returns the Entity's parent, or nil |
+| children (readonly) | Returns an array of the Entity's children, or nil |
+| \<ComponentName\> (readonly) | Returns the Entity's component with the given name, or an array of multiple components, or nil |
+
+#### **Instance methods**
+
+| Method   | Use                                | Description                                                                                                       |
+| -------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| SetTransform   | `Entity:SetTransform(newTransform)`            | Sets the Entity's transform, taking a table with x, y, rotation, scale_x, scale_y |
+| AddChild | `Entity:AddChild(entity_id)` | Adds a child to the Entity. Entity can be an ID, or another Entity object |
+| Deparent | `Entity:Deparent()` | Removes the Entity from it's parent, if it has one. |
+| Kill | `Entity:Kill()` | Kills the Entity |
+| AddComponent | `Entity:AddComponent(type, data)` | Adds a component of type `type`, with data `data`. |
+| Damage | `Entity:Damage(amount, type, desc, rag_fx, imp_x, imp_y, entity_responsible, pos_x, pos_y, knockback_force)` | Damages the Entity |
+| Ingest | `Entity:Ingest(material, amount)` | Ingests the given material |
+
